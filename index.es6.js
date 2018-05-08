@@ -70,6 +70,17 @@ const aesDecrypto = (aesSecretMessage, secretKey)=>{
     return plaintext;
 }
 
+/**
+ * buffer type to string
+ * @param {* buffer} buffer 
+ */
+const buf2hex = (buffer)=>{
+    return signature.buf2hex(buffer)
+}
+
+const sha256 = (msg)=>{
+    return crypto.createHash("sha256").update(msg).digest()
+}
 
 module.exports = {
     createPubPrivateKeys,
@@ -78,5 +89,7 @@ module.exports = {
     sign,
     verify,
     aesEncrypto,
-    aesDecrypto
+    aesDecrypto,
+    buf2hex,
+    sha256
 }

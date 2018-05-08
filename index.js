@@ -72,6 +72,18 @@ var aesDecrypto = function aesDecrypto(aesSecretMessage, secretKey) {
     return plaintext;
 };
 
+/**
+ * buffer type to string
+ * @param {* buffer} buffer 
+ */
+var buf2hex = function buf2hex(buffer) {
+    return signature.buf2hex(buffer);
+};
+
+var sha256 = function sha256(msg) {
+    return crypto.createHash("sha256").update(msg).digest();
+};
+
 module.exports = {
     createPubPrivateKeys: createPubPrivateKeys,
     isPublicKey: isPublicKey,
@@ -79,5 +91,7 @@ module.exports = {
     sign: sign,
     verify: verify,
     aesEncrypto: aesEncrypto,
-    aesDecrypto: aesDecrypto
+    aesDecrypto: aesDecrypto,
+    buf2hex: buf2hex,
+    sha256: sha256
 };
