@@ -1,0 +1,28 @@
+{
+  "name": "bottos-js-crypto",
+  "version": "1.0.0",
+  "description": "crypto for bottos wallet project",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*.test.js",
+    "docs": "jsdoc2md test/*.js > doc/test.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bottos-project/bottos-js-crypto.git"
+  },
+  "keywords": [],
+  "author": "yuanjunliang",
+  "license": "ISC",
+  "dependencies": {
+    "bytebuffer": "^5.0.1",
+    "crypto-js": "^3.1.9-1",
+    "eccrypto": "^1.0.3",
+    "protobufjs": "^6.8.6",
+    "secp256k1": "^3.5.0"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
