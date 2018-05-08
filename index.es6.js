@@ -12,6 +12,15 @@ const createPubPrivateKeys = ()=>{
 }
 
 /**
+ * create proto buffer by protojs and json message
+ * @param {*proto file in javascript} protojs 
+ * @param {* JSON Object} msg message for sign
+ */
+const protobufEncode = (protojs,msg)=>{
+    return signature.protobufEncode(protojs,msg);
+}
+
+/**
  * sign message of proto encoded
  * @param {* buffer} protoEncode proto encode buffer 
  * @param {*} privateKey privateKey
@@ -65,6 +74,7 @@ const aesDecrypto = (aesSecretMessage, secretKey)=>{
 module.exports = {
     createPubPrivateKeys,
     isPublicKey,
+    protobufEncode,
     sign,
     verify,
     aesEncrypto,
