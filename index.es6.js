@@ -46,7 +46,7 @@ const isPublicKey = (privateKey,pubKey)=>{
  * @param {* buffer} publicKey private key
  */
 const verify = (protoEncode,sign,publicKey)=>{
-    let msg = crypto.createHash("sha256").update(this.buf2hex(protoEncode.buffer)).digest()
+    let msg = crypto.createHash("sha256").update(buf2hex(protoEncode.buffer)).digest()
     return secp256k1.verify(msg,sign,publicKey)
 }
 

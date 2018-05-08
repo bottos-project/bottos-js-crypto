@@ -48,7 +48,7 @@ var isPublicKey = function isPublicKey(privateKey, pubKey) {
  * @param {* buffer} publicKey private key
  */
 var verify = function verify(protoEncode, sign, publicKey) {
-    var msg = crypto.createHash("sha256").update(undefined.buf2hex(protoEncode.buffer)).digest();
+    var msg = crypto.createHash("sha256").update(buf2hex(protoEncode.buffer)).digest();
     return secp256k1.verify(msg, sign, publicKey);
 };
 
