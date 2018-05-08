@@ -4,13 +4,15 @@ var crypto = require("crypto");
 var eccrypto = require("eccrypto");
 var protobuf = require("google-protobuf");
 var secp256k1 = require('secp256k1');
-var signature = require('./lib/signature');
 
 /**
  * create public key and private key
  */
 var createPubPrivateKeys = function createPubPrivateKeys() {
-    return signature.createKeys();
+    var privateKey = crypto.randomBytes(32);
+    var publicKey = eccrypto.getPublic(privateKey);
+
+    return { privateKey: privateKey, publicKey: publicKey };
 };
 
 /**
@@ -19,16 +21,30 @@ var createPubPrivateKeys = function createPubPrivateKeys() {
  * @param {* JSON Object} msg message for sign
  */
 var protobufEncode = function protobufEncode(protojs, msg) {
-    return signature.protobufEncode(protojs, msg);
+    var ProtoMsg = new protojs.Message();
+
+    ProtoMsg.setVersion(msg.version);
+    ProtoMsg.setCursornum(msg.cursornum);
+    ProtoMsg.setCursorLabel(msg.cursorlabel);
+    ProtoMsg.setLifetime(msg.lifetime);
+    ProtoMsg.setSender(msg.sender);
+    ProtoMsg.setContract(msg.contract);
+    ProtoMsg.setMethod(msg.method);
+    ProtoMsg.setParam(new Uint8Array(msg.param));
+    ProtoMsg.setSigAlg(msg.sigalg);
+    ProtoMsg.setSignature(msg.signature);
+
+    return ProtoMsg.serializeBinary();
 };
 
 /**
- * sign message of proto encoded
- * @param {* buffer} protoEncode proto encode buffer 
+ * sign message
+ * @param {* string} msg sign message 
  * @param {*} privateKey privateKey
  */
-var sign = function sign(protoEncode, privateKey) {
-    return signature.sign(protoEncode, privateKey);
+var sign = function sign(msg, privateKey) {
+    var signObj = secp256k1.sign(msg, privateKey);
+    return signObj.signature;
 };
 
 /**
@@ -77,7 +93,9 @@ var aesDecrypto = function aesDecrypto(aesSecretMessage, secretKey) {
  * @param {* buffer} buffer 
  */
 var buf2hex = function buf2hex(buffer) {
-    return signature.buf2hex(buffer);
+    return Array.prototype.map.call(new Uint8Array(buffer), function (x) {
+        return ('00' + x.toString(16)).slice(-2);
+    }).join('');
 };
 
 var sha256 = function sha256(msg) {

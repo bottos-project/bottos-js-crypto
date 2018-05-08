@@ -2,13 +2,15 @@ var crypto = require("crypto");
 var eccrypto = require("eccrypto");
 var protobuf = require("google-protobuf");
 const secp256k1 = require('secp256k1')
-const signature = require('./lib/signature')
 
 /**
  * create public key and private key
  */
 const createPubPrivateKeys = ()=>{
-    return signature.createKeys()
+    let privateKey = crypto.randomBytes(32)
+    let publicKey = eccrypto.getPublic(privateKey)
+
+    return {privateKey,publicKey}
 }
 
 /**
@@ -17,16 +19,30 @@ const createPubPrivateKeys = ()=>{
  * @param {* JSON Object} msg message for sign
  */
 const protobufEncode = (protojs,msg)=>{
-    return signature.protobufEncode(protojs,msg);
+    const ProtoMsg = new protojs.Message()
+
+    ProtoMsg.setVersion(msg.version)
+    ProtoMsg.setCursornum(msg.cursornum)
+    ProtoMsg.setCursorLabel(msg.cursorlabel)
+    ProtoMsg.setLifetime(msg.lifetime)
+    ProtoMsg.setSender(msg.sender)
+    ProtoMsg.setContract(msg.contract)
+    ProtoMsg.setMethod(msg.method)
+    ProtoMsg.setParam(new Uint8Array(msg.param))
+    ProtoMsg.setSigAlg(msg.sigalg)
+    ProtoMsg.setSignature(msg.signature)
+
+    return ProtoMsg.serializeBinary();
 }
 
 /**
- * sign message of proto encoded
- * @param {* buffer} protoEncode proto encode buffer 
+ * sign message
+ * @param {* string} msg sign message 
  * @param {*} privateKey privateKey
  */
-const sign = (protoEncode,privateKey)=>{
-    return signature.sign(protoEncode,privateKey)
+const sign = (msg,privateKey)=>{
+    const signObj = secp256k1.sign(msg,privateKey)
+    return signObj.signature;
 }
 
 /**
@@ -75,7 +91,7 @@ const aesDecrypto = (aesSecretMessage, secretKey)=>{
  * @param {* buffer} buffer 
  */
 const buf2hex = (buffer)=>{
-    return signature.buf2hex(buffer)
+    return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
 
 const sha256 = (msg)=>{
