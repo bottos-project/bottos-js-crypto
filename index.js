@@ -4,6 +4,22 @@ var crypto = require("crypto");
 var eccrypto = require("eccrypto");
 var protobuf = require("google-protobuf");
 var secp256k1 = require('secp256k1');
+var keystore = require('./lib/keystore');
+
+/**
+ * create private key
+ */
+var createPrivateKey = function createPrivateKey() {
+    return crypto.randomBytes(32);
+};
+
+/**
+ *  create public key from private key 
+ * @param {* buffer} privateKey 
+ */
+var privateKey2pubKey = function privateKey2pubKey(privateKey) {
+    return eccrypto.getPublic(privateKey);
+};
 
 /**
  * create public key and private key
@@ -111,5 +127,6 @@ module.exports = {
     aesEncrypto: aesEncrypto,
     aesDecrypto: aesDecrypto,
     buf2hex: buf2hex,
-    sha256: sha256
+    sha256: sha256,
+    keystore: keystore
 };
