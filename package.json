@@ -1,6 +1,6 @@
 {
   "name": "bottos-js-crypto",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "crypto for bottos wallet project",
   "main": "index.js",
   "scripts": {
