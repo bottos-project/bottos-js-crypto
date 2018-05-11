@@ -38,7 +38,7 @@ const protobufEncode = (protojs,msg)=>{
     const ProtoMsg = new protojs.Message()
 
     ProtoMsg.setVersion(msg.version)
-    ProtoMsg.setCursornum(msg.cursornum)
+    ProtoMsg.setCursorNum(msg.cursornum)
     ProtoMsg.setCursorLabel(msg.cursorlabel)
     ProtoMsg.setLifetime(msg.lifetime)
     ProtoMsg.setSender(msg.sender)

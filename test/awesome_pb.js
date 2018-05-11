@@ -60,7 +60,7 @@ proto.Messagepackage.Message.prototype.toObject = function(opt_includeInstance) 
 proto.Messagepackage.Message.toObject = function(includeInstance, msg) {
   var f, obj = {
     version: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    cursornum: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    cursorNum: jspb.Message.getFieldWithDefault(msg, 2, 0),
     cursorLabel: jspb.Message.getFieldWithDefault(msg, 3, 0),
     lifetime: jspb.Message.getFieldWithDefault(msg, 4, 0),
     sender: jspb.Message.getFieldWithDefault(msg, 5, ""),
@@ -111,7 +111,7 @@ proto.Messagepackage.Message.deserializeBinaryFromReader = function(msg, reader)
       break;
     case 2:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setCursornum(value);
+      msg.setCursorNum(value);
       break;
     case 3:
       var value = /** @type {number} */ (reader.readUint32());
@@ -181,7 +181,7 @@ proto.Messagepackage.Message.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-  f = message.getCursornum();
+  f = message.getCursorNum();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -263,16 +263,16 @@ proto.Messagepackage.Message.prototype.setVersion = function(value) {
 
 
 /**
- * optional uint32 cursornum = 2;
+ * optional uint32 cursor_num = 2;
  * @return {number}
  */
-proto.Messagepackage.Message.prototype.getCursornum = function() {
+proto.Messagepackage.Message.prototype.getCursorNum = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.Messagepackage.Message.prototype.setCursornum = function(value) {
+proto.Messagepackage.Message.prototype.setCursorNum = function(value) {
   jspb.Message.setProto3IntField(this, 2, value);
 };
 
