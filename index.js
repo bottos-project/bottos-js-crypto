@@ -121,6 +121,7 @@ var sha256 = function sha256(msg) {
 module.exports = {
     createPubPrivateKeys: createPubPrivateKeys,
     isPublicKey: isPublicKey,
+    privateKey2pubKey: privateKey2pubKey,
     protobufEncode: protobufEncode,
     sign: sign,
     verify: verify,
