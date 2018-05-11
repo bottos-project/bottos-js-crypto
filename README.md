@@ -27,13 +27,15 @@ let hashData = btcrypto.sha256(btcrypto.buf2hex(encodeBuf))
 let sign = btcrypto.sign(hashData,prikey)
 
 // // sha256
-// let hash = btcrypto.sha256("test message")
+let hash = btcrypto.sha256("test message")
 
 // keystore
-const kst = btcrypto.keystore;
-const keystoreObj = kst.create({account:"john",password:"john123"})
+let kst = btcrypto.keystore;
+let keystoreObj = kst.create({account:"john",password:"john123"})
 
 
 // keystore and password decrypto private key
-const priKey = keystore.recover(password,keystoreObj)
+let privateKey = keystore.recover(password,keystoreObj)
+
+
 ```
