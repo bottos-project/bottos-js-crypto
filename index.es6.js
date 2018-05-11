@@ -117,6 +117,7 @@ const sha256 = (msg)=>{
 module.exports = {
     createPubPrivateKeys,
     isPublicKey,
+    privateKey2pubKey,
     protobufEncode,
     sign,
     verify,
