@@ -38,14 +38,14 @@ const protobufEncode = (protojs,msg)=>{
     const ProtoMsg = new protojs.Message()
 
     ProtoMsg.setVersion(msg.version)
-    ProtoMsg.setCursorNum(msg.cursornum)
-    ProtoMsg.setCursorLabel(msg.cursorlabel)
+    ProtoMsg.setCursorNum(msg.cursor_num)
+    ProtoMsg.setCursorLabel(msg.cursor_label)
     ProtoMsg.setLifetime(msg.lifetime)
     ProtoMsg.setSender(msg.sender)
     ProtoMsg.setContract(msg.contract)
     ProtoMsg.setMethod(msg.method)
-    ProtoMsg.setParam(new Uint8Array(msg.param))
-    ProtoMsg.setSigAlg(msg.sigalg)
+    ProtoMsg.setParam(msg.param)
+    ProtoMsg.setSigAlg(msg.sig_alg)
     ProtoMsg.setSignature(msg.signature)
 
     return ProtoMsg.serializeBinary();
