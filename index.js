@@ -5,6 +5,7 @@ var eccrypto = require("eccrypto");
 var protobuf = require("google-protobuf");
 var secp256k1 = require('secp256k1');
 var keystore = require('./lib/keystore');
+var msgpack = require('./lib/msgpack/index')
 
 /**
  * create private key
@@ -129,5 +130,6 @@ module.exports = {
     aesDecrypto: aesDecrypto,
     buf2hex: buf2hex,
     sha256: sha256,
-    keystore: keystore
+    keystore: keystore,
+    msgpack: msgpack
 };
