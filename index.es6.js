@@ -88,6 +88,18 @@ const buf2hex = (buffer)=>{
     return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
 
+/**
+ * string type to buffer
+ * @param {* string} str 
+ * @param {* hex || base64} enc 
+ */
+const str2buf = (str, enc = "hex")=>{
+    if (!str || str.constructor !== String) return str;
+    if (!enc && this.isHex(str)) enc = "hex";
+    if (!enc && this.isBase64(str)) enc = "base64";
+    return Buffer.from(str, enc);
+}
+
 const sha256 = (msg)=>{
     return crypto.createHash("sha256").update(msg).digest()
 }
@@ -101,6 +113,7 @@ module.exports = {
     aesEncrypto,
     aesDecrypto,
     buf2hex,
+    str2buf,
     sha256,
     keystore,
     msgpack

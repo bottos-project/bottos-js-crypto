@@ -5,8 +5,7 @@ var eccrypto = require("eccrypto");
 var protobuf = require("google-protobuf");
 var secp256k1 = require('secp256k1');
 var keystore = require('./lib/keystore');
-var msgpack = require('./lib/msgpack/index')
-
+var msgpack = require('./lib/msgpack/index');
 /**
  * create private key
  */
@@ -93,6 +92,20 @@ var buf2hex = function buf2hex(buffer) {
     }).join('');
 };
 
+/**
+ * string type to buffer
+ * @param {* string} str 
+ * @param {* hex || base64} enc 
+ */
+var str2buf = function str2buf(str) {
+    var enc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "hex";
+
+    if (!str || str.constructor !== String) return str;
+    if (!enc && undefined.isHex(str)) enc = "hex";
+    if (!enc && undefined.isBase64(str)) enc = "base64";
+    return Buffer.from(str, enc);
+};
+
 var sha256 = function sha256(msg) {
     return crypto.createHash("sha256").update(msg).digest();
 };
@@ -106,6 +119,7 @@ module.exports = {
     aesEncrypto: aesEncrypto,
     aesDecrypto: aesDecrypto,
     buf2hex: buf2hex,
+    str2buf: str2buf,
     sha256: sha256,
     keystore: keystore,
     msgpack: msgpack
