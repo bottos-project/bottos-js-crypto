@@ -33,28 +33,6 @@ var createPubPrivateKeys = function createPubPrivateKeys() {
 };
 
 /**
- * create proto buffer by protojs and json message
- * @param {*proto file in javascript} protojs 
- * @param {* JSON Object} msg message for sign
- */
-var protobufEncode = function protobufEncode(protojs, msg) {
-    var ProtoMsg = new protojs.Message();
-
-    ProtoMsg.setVersion(msg.version);
-    ProtoMsg.setCursorNum(msg.cursor_num);
-    ProtoMsg.setCursorLabel(msg.cursor_label);
-    ProtoMsg.setLifetime(msg.lifetime);
-    ProtoMsg.setSender(msg.sender);
-    ProtoMsg.setContract(msg.contract);
-    ProtoMsg.setMethod(msg.method);
-    ProtoMsg.setParam(msg.param);
-    ProtoMsg.setSigAlg(msg.sig_alg);
-    ProtoMsg.setSignature(msg.signature);
-
-    return ProtoMsg.serializeBinary();
-};
-
-/**
  * sign message
  * @param {* string} msg sign message 
  * @param {*} privateKey privateKey
@@ -123,7 +101,6 @@ module.exports = {
     createPubPrivateKeys: createPubPrivateKeys,
     isPublicKey: isPublicKey,
     privateKey2pubKey: privateKey2pubKey,
-    protobufEncode: protobufEncode,
     sign: sign,
     verify: verify,
     aesEncrypto: aesEncrypto,
